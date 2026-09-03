@@ -84,8 +84,8 @@
                         <button onclick="switchTab('exam')" class="bg-ethYellow hover:bg-yellow-400 text-slate-900 font-bold px-5 py-2.5 rounded-xl shadow transition-all transform hover:-translate-y-0.5" data-i18n="btn-start-exam">
                             Start Mock Examination
                         </button>
-                        <button onclick="switchTab('pdf')" class="bg-white/20 hover:bg-white/30 text-white font-semibold px-5 py-2.5 rounded-xl transition-all" data-i18n="btn-download-pdf-hero">
-                            <i class="fas fa-file-pdf mr-2"></i>Generate Offline Exam PDF
+                        <button onclick="switchTab('pdf')" class="bg-white/20 hover:bg-white/30 text-white font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center">
+                            <i class="fas fa-file-pdf mr-2"></i><span data-i18n="btn-download-pdf-hero">Generate Offline Exam PDF</span>
                         </button>
                         <button onclick="switchTab('curriculum')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-5 py-2.5 rounded-xl transition-all" data-i18n="btn-explore-curriculum">
                             Explore Curriculum
@@ -301,9 +301,9 @@
 
                     <div class="bg-amber-50 p-4 rounded-lg border border-amber-200 text-amber-800 text-xs space-y-1">
                         <p class="font-bold"><i class="fas fa-info-circle mr-1"></i> <span data-i18n="exam-rules-title">Examination Rules:</span></p>
-                        <ul class="list-disc list-inside space-y-0.5" data-i18n="exam-rules-list">
-                            <li>Timed practice exam structured on regional standards.</li>
-                            <li>Instant score computation and step-by-step diagnostic solutions.</li>
+                        <ul class="list-disc list-inside space-y-0.5">
+                            <li data-i18n="exam-rule-1">Timed practice exam structured on regional standards.</li>
+                            <li data-i18n="exam-rule-2">Instant score computation and step-by-step diagnostic solutions.</li>
                         </ul>
                     </div>
                 </div>
@@ -405,8 +405,8 @@
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1" data-i18n="pdf-include-answers">Answer Key Settings</label>
                         <select id="pdf-answers-option" onchange="renderPDFPreview()" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-ethBlue">
-                            <option value="include">Include Answer Key on Final Page</option>
-                            <option value="exclude">Questions Only (Student Worksheets)</option>
+                            <option value="include" data-i18n="opt-key-include">Include Answer Key on Final Page</option>
+                            <option value="exclude" data-i18n="opt-key-exclude">Questions Only (Student Worksheets)</option>
                         </select>
                     </div>
                     <div>
@@ -421,30 +421,30 @@
                     
                     <div class="text-center border-b-2 border-slate-900 pb-4 mb-6 space-y-1">
                         <div class="flex items-center justify-between text-xs font-mono mb-2">
-                            <span>ETHIOPIAN MOE STANDARD</span>
-                            <span id="pdf-preview-region" class="font-bold">GRADE 6 REGIONAL ASSESSMENT</span>
+                            <span data-i18n="pdf-moe-header">ETHIOPIAN MOE STANDARD</span>
+                            <span id="pdf-preview-region" class="font-bold" data-i18n="pdf-regional-tag">GRADE 6 REGIONAL ASSESSMENT</span>
                         </div>
                         <h1 class="text-xl font-bold uppercase tracking-wide" id="pdf-school-title">Central Regional Educational Assessment Board</h1>
                         <h2 class="text-base font-semibold text-slate-700" id="pdf-subject-title">GRADE 6 EXAMINATION - MATHEMATICS</h2>
                         <div class="flex justify-between items-center text-xs text-slate-600 pt-2 border-t border-slate-200 mt-2">
-                            <span>Time Allowed: <strong>45 Minutes</strong></span>
-                            <span>Total Marks: <strong>100%</strong></span>
+                            <span><span data-i18n="pdf-time-allowed">Time Allowed</span>: <strong>45 <span data-i18n="pdf-minutes">Minutes</span></strong></span>
+                            <span><span data-i18n="pdf-total-marks">Total Marks</span>: <strong>100%</strong></span>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4 border border-slate-400 p-3 text-xs mb-6 rounded-sm">
-                        <div><strong>Student Name:</strong> ___________________________</div>
-                        <div><strong>Roll Number:</strong> _________________</div>
-                        <div><strong>School Name:</strong> ____________________________</div>
-                        <div><strong>Section / Room:</strong> ______________</div>
+                        <div><strong data-i18n="pdf-lbl-student">Student Name:</strong> ___________________________</div>
+                        <div><strong data-i18n="pdf-lbl-roll">Roll Number:</strong> _________________</div>
+                        <div><strong data-i18n="pdf-lbl-school">School Name:</strong> ____________________________</div>
+                        <div><strong data-i18n="pdf-lbl-section">Section / Room:</strong> ______________</div>
                     </div>
 
                     <div class="bg-slate-50 border border-slate-300 p-3 rounded-sm mb-6 text-xs">
-                        <p class="font-bold underline mb-1">GENERAL INSTRUCTIONS FOR CANDIDATES:</p>
+                        <p class="font-bold underline mb-1" data-i18n="pdf-instructions-title">GENERAL INSTRUCTIONS FOR CANDIDATES:</p>
                         <ol class="list-decimal list-inside space-y-0.5">
-                            <li>Write your full details clearly in the box provided above.</li>
-                            <li>Read every question carefully before marking your answer choice.</li>
-                            <li>Select the best answer from the given alternatives (A, B, C, or D).</li>
+                            <li data-i18n="pdf-inst-1">Write your full details clearly in the box provided above.</li>
+                            <li data-i18n="pdf-inst-2">Read every question carefully before marking your answer choice.</li>
+                            <li data-i18n="pdf-inst-3">Select the best answer from the given alternatives (A, B, C, or D).</li>
                         </ol>
                     </div>
 
@@ -577,11 +577,30 @@
                 "back-to-home": "Back to Home Screen",
                 "curriculum-heading": "MoE Ethiopian Curriculum Breakdown",
                 "curriculum-sub": "Detailed breakdown aligned with Ministry of Education standards for Grade 6 assessments.",
+                
+                // Curriculum Units
+                "amh-u1": "<strong>Unit 1: Reading & Comprehension (ማንበብና መረዳት):</strong> Main ideas, context-based vocabulary, and inferential reading.",
+                "amh-u2": "<strong>Unit 2: Grammar & Structure (ስዋስው):</strong> Nouns, pronouns, tense agreement, and sentence punctuation.",
+                "amh-u3": "<strong>Unit 3: Writing & Composition (ድርሰት ጽሕፈት):</strong> Descriptive paragraphs, formal letters, and logical coherence.",
+                "eng-u1": "<strong>Units 1-3: Tenses & Grammar:</strong> Simple past, present perfect, adverbs, and comparative adjectives.",
+                "eng-u2": "<strong>Units 4-6: Reading & Vocabulary:</strong> Context clues, synonym/antonym identification, and passages on health and nature.",
+                "math-u1": "<strong>Unit 1: Whole Numbers & Operations:</strong> Place value, prime factorization, LCM, and GCF.",
+                "math-u2": "<strong>Unit 2: Fractions and Decimals:</strong> Simplification, operational order, and conversions.",
+                "math-u3": "<strong>Unit 3: Geometry & Algebra:</strong> Perimeter, area calculation of plane figures, and linear equations.",
+                "sci-u1": "<strong>Unit 1: Natural Environment of Ethiopia:</strong> Climate, vegetation zones, and conservation practices.",
+                "sci-u2": "<strong>Unit 2: Human Organ Systems:</strong> Digestive, circulatory, and respiratory function overview.",
+                "sci-u3": "<strong>Unit 3: Matter and Energy:</strong> Forms of energy, simple machines, and physical changes.",
+                "soc-u1": "<strong>Unit 1: Physical Geography:</strong> Map reading, relief features, and climate of Ethiopia.",
+                "soc-u2": "<strong>Unit 2: History & Heritage:</strong> Historical kingdoms, cultural heritages, and social development.",
+                "civ-u1": "<strong>Unit 1: Ethics and Rules:</strong> Self-discipline, truthfulness, and community norms.",
+                "civ-u2": "<strong>Unit 2: Constitutional Rights:</strong> Equality, human rights, and duties of a citizen.",
+
                 "exam-title": "Ministry Grade 6 Assessment Engine",
                 "exam-subtitle": "Select a subject to start the timed practice exam.",
                 "select-subject": "Select Examination Subject",
                 "exam-rules-title": "Examination Rules:",
-                "exam-rules-list": "<li>Timed practice exam structured on regional standards.</li><li>Instant score computation and step-by-step diagnostic solutions.</li>",
+                "exam-rule-1": "Timed practice exam structured on regional standards.",
+                "exam-rule-2": "Instant score computation and step-by-step diagnostic solutions.",
                 "btn-start-now": "Start Examination Now",
                 "grade6-standard": "Grade 6 Regional Standard",
                 "exit-exam": "Exit Exam",
@@ -599,7 +618,26 @@
                 "btn-print-paper": "Print Test Paper",
                 "pdf-select-subject": "Subject",
                 "pdf-include-answers": "Answer Key Settings",
+                "opt-key-include": "Include Answer Key on Final Page",
+                "opt-key-exclude": "Questions Only (Student Worksheets)",
                 "pdf-school-name": "School / Region Name",
+                
+                // Printable PDF Document Labels
+                "pdf-moe-header": "ETHIOPIAN MOE STANDARD",
+                "pdf-regional-tag": "GRADE 6 REGIONAL ASSESSMENT",
+                "pdf-time-allowed": "Time Allowed",
+                "pdf-minutes": "Minutes",
+                "pdf-total-marks": "Total Marks",
+                "pdf-lbl-student": "Student Name:",
+                "pdf-lbl-roll": "Roll Number:",
+                "pdf-lbl-school": "School Name:",
+                "pdf-lbl-section": "Section / Room:",
+                "pdf-instructions-title": "GENERAL INSTRUCTIONS FOR CANDIDATES:",
+                "pdf-inst-1": "Write your full details clearly in the box provided above.",
+                "pdf-inst-2": "Read every question carefully before marking your answer choice.",
+                "pdf-inst-3": "Select the best answer from the given alternatives (A, B, C, or D).",
+                "pdf-ans-key-title": "OFFICIAL ANSWER KEY & RATIONALES",
+
                 "analytics-title": "Student Progress & Diagnostic Tracking",
                 "analytics-subtitle": "Real-time breakdown of subject competencies based on practice exam history.",
                 "competency": "Competency",
@@ -622,25 +660,44 @@
                 "coverage": "የተሸፈነ: 100%",
                 "view-syllabus": "ይዘቱን እይ →",
                 "subject-amharic": "አማርኛ (Amharic)",
-                "amharic-desc": "ማንበብና መረዳት፣ ሰዋሰው፣ የቃላት እውቀት፣ እና የስነ-ጽሁፍ ውቅር።",
+                "amharic-desc": "ማንበብና መረዳት፣ ሰዋሰው፣ የቃላት እውቀት፣ ንግግር እና የስነ-ጽሁፍ ውቅር።",
                 "subject-english": "እንግሊዝኛ (English)",
-                "english-desc": "ምንባብ፣ ሰዋሰው፣ የቃላት እውቀት እና ጽሁፍ።",
+                "english-desc": "የምንባብ ግንዛቤ፣ የሰዋሰው አጠቃቀም፣ ድርጊት አመልካች ቃላት እና ድርሰት።",
                 "subject-math": "ሒሳብ (Mathematics)",
                 "math-desc": "ሙሉ ቁጥሮች፣ ፍራክሽኖች፣ ንፅፅር፣ ጂኦሜትሪ፣ ዙሪያ፣ ስፋት እና አልጀብራ።",
                 "subject-science": "ጠቅላላ / አካባቢ ሳይንስ (General Science)",
-                "science-desc": "ሥነ-ምህዳር፣ የሰውነት ክፍሎች፣ የኃይል ለውጦች፣ እና የተፈጥሮ ሀብቶች።",
+                "science-desc": "ሥነ-ምህዳር፣ የሰውነት ክፍሎች፣ የኃይል ለውጦች፣ ቁስ እና የተፈጥሮ ሀብቶች።",
                 "subject-social": "ኅብረተሰብ ሳይንስ (Social Studies)",
                 "social-desc": "የኢትዮጵያ ጂኦግራፊ፣ የታሪክ ስልጣኔዎች፣ የህዝብ ብዛት እና ኢኮኖሚ።",
                 "subject-civics": "ግብረ ገብና ዜግነት (Moral & Civics)",
-                "civics-desc": "ዲሞክራሲ፣ ህገ-መንግስታዊ መብቶች፣ ስነ-ምግባር፣ እና የዜግነት ሀላፊነቶች።",
+                "civics-desc": "ዲሞክራሲ፣ ህገ-መንግስታዊ መብቶች፣ ስነ-ምግባር፣ የዜግነት ሀላፊነቶች እና ሰላም።",
                 "back-to-home": "ወደ ዋና ገጽ ተመለስ",
                 "curriculum-heading": "የኢትዮጵያ ብሔራዊ ሥርዓተ-ትምህርት ትንተና",
-                "curriculum-sub": " በትምህርት ሚኒስቴር መስፈርት መሠረት የተዋቀረ የትምህርት ይዘት።",
+                "curriculum-sub": "በትምህርት ሚኒስቴር መስፈርት መሠረት የተዋቀረ የትምህርት ይዘት።",
+
+                // Curriculum Units
+                "amh-u1": "<strong>ምዕራፍ 1: ማንበብና መረዳት:</strong> ዋና ሀሳብ፣ የቃላት አጠቃቀም እና የመረዳት ችሎታ።",
+                "amh-u2": "<strong>ምዕራፍ 2: ስዋስው:</strong> ስሞች፣ ተካሂዶዎች፣ የጊዜ ስምምነት እና የስርዓተ-ነጥብ አጠቃቀም።",
+                "amh-u3": "<strong>ምዕራፍ 3: ድርሰት ጽሕፈት:</strong> ገላጭ አንቀጾች፣ ደብዳቤዎች እና ተከታታይ የሃሳብ ፍሰት።",
+                "eng-u1": "<strong>ምዕራፍ 1-3: ሰዋሰው እና ቃላት:</strong> ሀላፊ ጊዜ፣ አሁን ጊዜ፣ ተሳስቦዎች እና ንፅፅሮች።",
+                "eng-u2": "<strong>ምዕራፍ 4-6: ምንባብ እና የቃላት እውቀት:</strong> የቃላት ፍቺ፣ ተመሳሳይ እና ተቃራኒ ቃላት።",
+                "math-u1": "<strong>ምዕራፍ 1: ሙሉ ቁጥሮች:</strong> የቤት ዋጋ፣ ብቸኛ ቁጥሮች፣ ታ.አ.ብ (LCM) እና ታ.አ.ገ (GCF)።",
+                "math-u2": "<strong>ምዕራፍ 2: ቪክቶር እና ዴሲማል:</strong> ማቃለል፣ የሂሳብ ስራዎች ቅደም ተከተል እና ለውጦች።",
+                "math-u3": "<strong>ምዕራፍ 3: ጂኦሜትሪ እና አልጀብራ:</strong> ዙሪያ፣ የስፋት ስሌት እና የመስመር እኩልታዎች።",
+                "sci-u1": "<strong>ምዕራፍ 1: የኢትዮጵያ ተፈጥሮአዊ አካባቢ:</strong> አየር ንብረት፣ የዕፅዋት ክልሎች እና እንክብካቤ።",
+                "sci-u2": "<strong>ምዕራፍ 2: የሰውነት አካላት:</strong> የምግብ መፈጨት፣ ደም ዝውውር እና የመተንፈሻ አካላት።",
+                "sci-u3": "<strong>ምዕራፍ 3: ቁስ እና ኃይል:</strong> የኃይል ዓይነቶች፣ ቀለል ያሉ ማሽኖች እና አካላዊ ለውጦች።",
+                "soc-u1": "<strong>ምዕራፍ 1: ጂኦግራፊ:</strong> ካርታ ማንበብ፣ የመሬት ቅርጾች እና የኢትዮጵያ አየር ንብረት።",
+                "soc-u2": "<strong>ምዕራፍ 2: ታሪክ እና ቅርሶች:</strong> ታሪካዊ መንግስታት፣ ባህላዊ ቅርሶች እና ማህበራዊ እድገት።",
+                "civ-u1": "<strong>ምዕራፍ 1: ስነ-ምግባር እና ህጎች:</strong> ራስን መግዛት፣ እውነተኛነት እና የማህበረሰብ ደንቦች።",
+                "civ-u2": "<strong>ምዕራፍ 2: ህገ-መንግስታዊ መብቶች:</strong> እኩልነት፣ ሰብአዊ መብቶች እና የዜግነት ግዴታዎች።",
+
                 "exam-title": "የ6ኛ ክፍል የፈተና ማዕከል",
                 "exam-subtitle": "የልምምድ ፈተና ለመጀመር ትምህርት ይምረጡ።",
                 "select-subject": "የፈተና ትምህርት ይምረጡ",
                 "exam-rules-title": "የፈተና ህጎች:",
-                "exam-rules-list": "<li>በተወሰነ ሰዓት የሚሰራ በሚኒስቴር ደረጃ የተዘጋጀ ፈተና።</li><li>ሲያጠናቅቁ ወዲያውኑ የውጤትና የማብራሪያ ትንተና ያገኛሉ።</li>",
+                "exam-rule-1": "በተወሰነ ሰዓት የሚሰራ በሚኒስቴር ደረጃ የተዘጋጀ ፈተና።",
+                "exam-rule-2": "ሲያጠናቅቁ ወዲያውኑ የውጤትና የማብራሪያ ትንተና ያገኛሉ።",
                 "btn-start-now": "ፈተናውን አሁን ጀምር",
                 "grade6-standard": "የ6ኛ ክፍል ክልላዊ ደረጃ",
                 "exit-exam": "ከፈተና ውጣ",
@@ -658,7 +715,26 @@
                 "btn-print-paper": "ፈተናውን አትም",
                 "pdf-select-subject": "ትምህርት",
                 "pdf-include-answers": "የመልስ ቁልፍ ማካተቻ",
+                "opt-key-include": "የመልስ ቁልፉ በስተመጨረሻ ይካተት",
+                "opt-key-exclude": "ጥያቄዎች ብቻ (ለተማሪዎች መስሪያ)",
                 "pdf-school-name": "የትምህርት ቤቱ / የዞኑ ስም",
+                
+                // Printable PDF Document Labels
+                "pdf-moe-header": "የኢትዮጵያ ትምህርት ሚኒስቴር መስፈርት",
+                "pdf-regional-tag": "የ6ኛ ክፍል ክልላዊ ምዘና",
+                "pdf-time-allowed": "የተፈቀደው ጊዜ",
+                "pdf-minutes": "ደቂቃዎች",
+                "pdf-total-marks": "ጠቅላላ ነጥብ",
+                "pdf-lbl-student": "የተማሪው/ዋ ስም:",
+                "pdf-lbl-roll": "መለያ ቁጥር:",
+                "pdf-lbl-school": "የትምህርት ቤቱ ስም:",
+                "pdf-lbl-section": "ክፍል / ክፍል ቁጥር:",
+                "pdf-instructions-title": "ለተፈታኞች የተሰጡ አጠቃላይ መመሪያዎች:",
+                "pdf-inst-1": "ሙሉ መረጃዎን ከላይ በተሰጠው ሳጥን ውስጥ ግልጽ አድርገው ይፃፉ።",
+                "pdf-inst-2": "መልስ ከመምረጥዎ በፊት እያንዳንዱን ጥያቄ በጥንቃቄ ያንብቡ።",
+                "pdf-inst-3": "ከተሰጡት አማራጮች (ሀ፣ ሁ፣ ሐ፣ ወይም መ) ትክክለኛውን መልስ ይምረጡ።",
+                "pdf-ans-key-title": "ኦፊሴላዊ የመልስ ቁልፍ እና ማብራሪያዎች",
+
                 "analytics-title": "የተማሪ እድገትና ክትትል",
                 "analytics-subtitle": "ከወሰዷቸው ፈተናዎች የተሰበሰበ የቀጥታ የትምህርት ብቃት።",
                 "competency": "ብቃት",
@@ -670,8 +746,8 @@
         const questionBank = {
             amharic: {
                 en: [
-                    { q: "በ 'አበበ መጽሐፉን አነበበ' ዓረፍተ ነገር ውስጥ ግሱ የትኛው ነው?", options: ["አበበ", "መጽሐፉን", "አነበበ", "የለም"], correct: 2, explanation: "በአማርኛ ሰዋሰው 'አነበበ' ድርጊትን የሚገልፅ ግስ ነው።" },
-                    { q: "የ 'ተጉ/ጎበዝ' ተቃራኒ ቃል የትኛው ነው?", options: ["ሰነፍ", "ብርቱ", "ፈጣን", "ትጉህ"], correct: 0, explanation: "የተጉ ወይም የጎበዝ ተቃራኒ ሰነፍ ነው።" }
+                    { q: "In the sentence 'አበበ መጽሐፉን አነበበ', which word is the verb?", options: ["አበበ", "መጽሐፉን", "አነበበ", "None"], correct: 2, explanation: "In Amharic grammar, 'አነበበ' (read) expresses the action, making it the verb." },
+                    { q: "What is the opposite (antonym) of 'ተጉ/ጎበዝ' (hardworking)?", options: ["ሰነፍ (Lazy)", "ብርቱ (Strong)", "ፈጣን (Fast)", "ትጉህ (Diligent)"], correct: 0, explanation: "'ሰነፍ' (lazy) is the direct opposite of 'ጎበዝ' or 'ትጉህ'." }
                 ],
                 am: [
                     { q: "በ 'አበበ መጽሐፉን አነበበ' ዓረፍተ ነገር ውስጥ ግሱ የትኛው ነው?", options: ["አበበ", "መጽሐፉን", "አነበበ", "የለም"], correct: 2, explanation: "በአማርኛ ሰዋሰው 'አነበበ' ድርጊትን የሚገልፅ ግስ ነው።" },
@@ -684,8 +760,8 @@
                     { q: "Identify the antonym of the word 'Ancient':", options: ["Old", "Modern", "Historic", "Aged"], correct: 1, explanation: "'Ancient' means very old; its opposite is 'Modern'." }
                 ],
                 am: [
-                    { q: "Select the correct past tense verb: 'They ________ soccer yesterday.'", options: ["play", "played", "playing", "plays"], correct: 1, explanation: "'Yesterday' signals past tense, requiring 'played'." },
-                    { q: "Identify the antonym of the word 'Ancient':", options: ["Old", "Modern", "Historic", "Aged"], correct: 1, explanation: "'Ancient' means very old; its opposite is 'Modern'." }
+                    { q: "ትክክለኛውን የኃላፊ ጊዜ ግስ ይምረጡ: 'They ________ soccer yesterday.'", options: ["play", "played", "playing", "plays"], correct: 1, explanation: "'Yesterday' የኃላፊ ጊዜ አመልካች በመሆኑ 'played' ትክክለኛ መልስ ነው።" },
+                    { q: "የ 'Ancient' (ጥንታዊ) ተቃራኒ ቃል የትኛው ነው?", options: ["Old", "Modern", "Historic", "Aged"], correct: 1, explanation: "'Ancient' ማለት በጣም አሮጌ/ጥንታዊ ማለት ሲሆን ተቃራኒው 'Modern' (ዘመናዊ) ነው።" }
                 ]
             },
             math: {
@@ -734,19 +810,20 @@
         let currentActiveQuestions = [];
         let examTimerInterval;
 
-        // Language Switcher Function
+        // Comprehensive Language Switcher Function
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'am' : 'en';
             document.getElementById('lang-btn-text').textContent = currentLang === 'en' ? 'አማርኛ' : 'English';
 
+            // Translate all elements with data-i18n attribute
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[currentLang][key]) {
+                if (translations[currentLang] && translations[currentLang][key]) {
                     el.innerHTML = translations[currentLang][key];
                 }
             });
 
-            // Re-render PDF Preview if active
+            // Update PDF preview dynamically to match selected language
             renderPDFPreview();
         }
 
@@ -794,17 +871,27 @@
             const includeAnswers = document.getElementById('pdf-answers-option').value === 'include';
 
             const subjectNames = {
-                amharic: "AMHARIC LANGUAGE (አማርኛ)",
-                english: "ENGLISH LANGUAGE",
-                math: "MATHEMATICS (ሒሳብ)",
-                science: "GENERAL SCIENCE (አካባቢ ሳይንስ)",
-                social: "SOCIAL STUDIES (ኅብረተሰብ ሳይንስ)",
-                civics: "CITIZENSHIP & MORAL EDUCATION (ግብረ ገብ)"
+                en: {
+                    amharic: "AMHARIC LANGUAGE (አማርኛ)",
+                    english: "ENGLISH LANGUAGE",
+                    math: "MATHEMATICS (ሒሳብ)",
+                    science: "GENERAL SCIENCE (አካባቢ ሳይንስ)",
+                    social: "SOCIAL STUDIES (ኅብረተሰብ ሳይንስ)",
+                    civics: "CITIZENSHIP & MORAL EDUCATION (ግብረ ገብ)"
+                },
+                am: {
+                    amharic: "አማርኛ ቋንቋ (AMHARIC)",
+                    english: "እንግሊዝኛ ቋንቋ (ENGLISH)",
+                    math: "ሒሳብ (MATHEMATICS)",
+                    science: "አካባቢ ሳይንስ (GENERAL SCIENCE)",
+                    social: "ኅብረተሰብ ሳይንስ (SOCIAL STUDIES)",
+                    civics: "ግብረ ገብና ዜግነት (CIVICS)"
+                }
             };
 
             // Dynamic header binding
             document.getElementById('pdf-school-title').textContent = schoolName.toUpperCase();
-            document.getElementById('pdf-subject-title').textContent = `GRADE 6 EXAMINATION - ${subjectNames[subject]}`;
+            document.getElementById('pdf-subject-title').textContent = `${currentLang === 'en' ? 'GRADE 6 EXAMINATION' : 'የ6ኛ ክፍል ፈተና'} - ${subjectNames[currentLang][subject]}`;
 
             const questions = questionBank[subject][currentLang];
             const qContainer = document.getElementById('pdf-questions-container');
@@ -813,7 +900,7 @@
             qContainer.innerHTML = '';
             ansWrapper.innerHTML = '';
 
-            const optionLabels = ['A', 'B', 'C', 'D'];
+            const optionLabels = currentLang === 'en' ? ['A', 'B', 'C', 'D'] : ['ሀ', 'ሁ', 'ሐ', 'መ'];
 
             // Build Questions Layout
             questions.forEach((q, idx) => {
@@ -834,11 +921,11 @@
             if (includeAnswers) {
                 ansWrapper.classList.remove('hidden');
                 ansWrapper.innerHTML = `
-                    <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide mb-2 underline">OFFICIAL ANSWER KEY & RATIONALES</h3>
+                    <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide mb-2 underline">${translations[currentLang]["pdf-ans-key-title"]}</h3>
                     <div class="space-y-2 text-xs">
                         ${questions.map((q, idx) => `
                             <div class="bg-slate-50 p-2 rounded border border-slate-200">
-                                <strong>Q${idx + 1}:</strong> Option <strong>${optionLabels[q.correct]}</strong> (${q.options[q.correct]})
+                                <strong>${currentLang === 'en' ? 'Q' : 'ጥያቄ '}${idx + 1}:</strong> ${currentLang === 'en' ? 'Option' : 'አማራጭ'} <strong>${optionLabels[q.correct]}</strong> (${q.options[q.correct]})
                                 <p class="text-slate-600 text-[11px] mt-0.5">${q.explanation}</p>
                             </div>
                         `).join('')}
@@ -871,7 +958,7 @@
             document.body.innerHTML = `<div style="padding:20px;">${printContents}</div>`;
             window.print();
             document.body.innerHTML = originalContents;
-            location.reload(); // Restore application state after printing
+            location.reload();
         }
 
         // --- EXAM SIMULATOR LOGIC ---
