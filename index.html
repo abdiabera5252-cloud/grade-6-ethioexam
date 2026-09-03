@@ -6,6 +6,7 @@
     <title>EthioExam Grade 6 - Ministry Assessment Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -43,6 +44,9 @@
                     <button onclick="switchTab('exam')" id="nav-exam" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-colors text-slate-200">
                         <i class="fas fa-pen-nib mr-1.5"></i><span data-i18n="nav-exam">Mock Exam Engine</span>
                     </button>
+                    <button onclick="switchTab('pdf')" id="nav-pdf" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-colors text-slate-200">
+                        <i class="fas fa-file-pdf mr-1.5"></i><span data-i18n="nav-pdf">PDF Generator</span>
+                    </button>
                     <button onclick="switchTab('analytics')" id="nav-analytics" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-colors text-slate-200">
                         <i class="fas fa-chart-line mr-1.5"></i><span data-i18n="nav-analytics">Performance Analytics</span>
                     </button>
@@ -75,10 +79,13 @@
             <div class="bg-gradient-to-r from-ethBlue via-slate-800 to-ethBlue rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
                 <div class="relative z-10 max-w-2xl">
                     <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2" data-i18n="hero-title">Grade 6 Regional Ministry Exam Prep</h1>
-                    <p class="text-slate-300 text-sm md:text-base mb-6" data-i18n="hero-subtitle">Comprehensive review engine structured around the new Ethiopian National Curriculum standard for Primary Schools.</p>
+                    <p class="text-slate-300 text-sm md:text-base mb-6" data-i18n="hero-subtitle">Comprehensive review engine structured around the Ethiopian National Curriculum standard for Primary Schools.</p>
                     <div class="flex flex-wrap gap-3">
                         <button onclick="switchTab('exam')" class="bg-ethYellow hover:bg-yellow-400 text-slate-900 font-bold px-5 py-2.5 rounded-xl shadow transition-all transform hover:-translate-y-0.5" data-i18n="btn-start-exam">
                             Start Mock Examination
+                        </button>
+                        <button onclick="switchTab('pdf')" class="bg-white/20 hover:bg-white/30 text-white font-semibold px-5 py-2.5 rounded-xl transition-all" data-i18n="btn-download-pdf-hero">
+                            <i class="fas fa-file-pdf mr-2"></i>Generate Offline Exam PDF
                         </button>
                         <button onclick="switchTab('curriculum')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-5 py-2.5 rounded-xl transition-all" data-i18n="btn-explore-curriculum">
                             Explore Curriculum
@@ -95,24 +102,11 @@
                     
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="p-3 bg-blue-50 text-blue-600 rounded-lg"><i class="fas fa-calculator text-xl"></i></span>
-                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">6 <span data-i18n="units">Units</span></span>
+                            <span class="p-3 bg-red-50 text-red-600 rounded-lg"><i class="fas fa-book text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">10 <span data-i18n="units">Units</span></span>
                         </div>
-                        <h3 class="font-bold text-slate-800 text-lg" data-i18n="subject-math">Mathematics (ሒሳብ)</h3>
-                        <p class="text-slate-500 text-xs mt-1" data-i18n="math-desc">Integers, fractions, ratios, basic geometry, perimeter, area, and algebraic expressions.</p>
-                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                            <span class="text-slate-400" data-i18n="coverage">Target Coverage: 100%</span>
-                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline" data-i18n="view-syllabus">View Syllabus &rarr;</button>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="p-3 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fas fa-leaf text-xl"></i></span>
-                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">5 <span data-i18n="units">Units</span></span>
-                        </div>
-                        <h3 class="font-bold text-slate-800 text-lg" data-i18n="subject-science">Environmental Science (አካባቢ ሳይንስ)</h3>
-                        <p class="text-slate-500 text-xs mt-1" data-i18n="science-desc">Ecosystems, natural resources in Ethiopia, body systems, energy, and weather.</p>
+                        <h3 class="font-bold text-slate-800 text-lg" data-i18n="subject-amharic">Amharic (አማርኛ)</h3>
+                        <p class="text-slate-500 text-xs mt-1" data-i18n="amharic-desc">Comprehension, grammar, vocabulary, oral expression, and literary structure.</p>
                         <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                             <span class="text-slate-400" data-i18n="coverage">Target Coverage: 100%</span>
                             <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline" data-i18n="view-syllabus">View Syllabus &rarr;</button>
@@ -124,8 +118,60 @@
                             <span class="p-3 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fas fa-language text-xl"></i></span>
                             <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">10 <span data-i18n="units">Units</span></span>
                         </div>
-                        <h3 class="font-bold text-slate-800 text-lg" data-i18n="subject-english">English for Ethiopia</h3>
-                        <p class="text-slate-500 text-xs mt-1" data-i18n="english-desc">Reading comprehension, grammar, vocabulary development, and situational writing.</p>
+                        <h3 class="font-bold text-slate-800 text-lg" data-i18n="subject-english">English Language</h3>
+                        <p class="text-slate-500 text-xs mt-1" data-i18n="english-desc">Reading comprehension, active grammar usage, tenses, and situational composition.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400" data-i18n="coverage">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline" data-i18n="view-syllabus">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-blue-50 text-blue-600 rounded-lg"><i class="fas fa-calculator text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">6 <span data-i18n="units">Units</span></span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg" data-i18n="subject-math">Mathematics (ሒሳብ)</h3>
+                        <p class="text-slate-500 text-xs mt-1" data-i18n="math-desc">Integers, fractions, ratios, geometry, perimeter, area, and single-variable equations.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400" data-i18n="coverage">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline" data-i18n="view-syllabus">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fas fa-leaf text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">5 <span data-i18n="units">Units</span></span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg" data-i18n="subject-science">General Science (አካባቢ ሳይንስ)</h3>
+                        <p class="text-slate-500 text-xs mt-1" data-i18n="science-desc">Ecosystems, body systems, energy transformations, matter, and Ethiopian resources.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400" data-i18n="coverage">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline" data-i18n="view-syllabus">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-amber-50 text-amber-600 rounded-lg"><i class="fas fa-globe-africa text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">5 <span data-i18n="units">Units</span></span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg" data-i18n="subject-social">Social Studies (ኅብረተሰብ ሳይንስ)</h3>
+                        <p class="text-slate-500 text-xs mt-1" data-i18n="social-desc">Ethiopian physical geography, historical civilizations, population, and economic activities.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400" data-i18n="coverage">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline" data-i18n="view-syllabus">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-purple-50 text-purple-600 rounded-lg"><i class="fas fa-scale-balanced text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">4 <span data-i18n="units">Units</span></span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg" data-i18n="subject-civics">Moral & Civic Education (ግብረ ገብ)</h3>
+                        <p class="text-slate-500 text-xs mt-1" data-i18n="civics-desc">Democracy, constitutional rights, ethics, civic responsibilities, and conflict resolution.</p>
                         <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                             <span class="text-slate-400" data-i18n="coverage">Target Coverage: 100%</span>
                             <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline" data-i18n="view-syllabus">View Syllabus &rarr;</button>
@@ -137,11 +183,10 @@
         </section>
 
         <section id="tab-curriculum" class="tab-content hidden space-y-6">
-            
             <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                 <div>
-                    <h2 class="text-xl font-bold text-slate-800" data-i18n="curriculum-heading">MoE Ethiopian National Curriculum Standard Analysis</h2>
-                    <p class="text-slate-500 text-xs" data-i18n="curriculum-sub">Structured topic breakdown aligned with Ministry of Education standards.</p>
+                    <h2 class="text-xl font-bold text-slate-800" data-i18n="curriculum-heading">MoE Ethiopian Curriculum Breakdown</h2>
+                    <p class="text-slate-500 text-xs" data-i18n="curriculum-sub">Detailed breakdown aligned with Ministry of Education standards for Grade 6 assessments.</p>
                 </div>
                 <button onclick="switchTab('dashboard')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-lg transition-colors flex items-center space-x-1">
                     <i class="fas fa-arrow-left"></i>
@@ -150,28 +195,76 @@
             </div>
 
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                
+                <div class="border border-slate-200 rounded-lg overflow-hidden">
+                    <button onclick="toggleAccordion('cur-amh')" class="w-full bg-slate-50 p-4 text-left font-bold text-slate-700 flex justify-between items-center hover:bg-slate-100">
+                        <span><i class="fas fa-book text-red-600 mr-2"></i> <span data-i18n="subject-amharic">Amharic (አማርኛ)</span></span>
+                        <i class="fas fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="cur-amh" class="p-4 bg-white border-t border-slate-100 space-y-2 text-sm text-slate-600">
+                        <p data-i18n="amh-u1"><strong>Unit 1: Reading & Comprehension (ማንበብና መረዳት):</strong> Main ideas, context-based vocabulary, and inferential reading.</p>
+                        <p data-i18n="amh-u2"><strong>Unit 2: Grammar & Structure (ስዋስው):</strong> Nouns, pronouns, tense agreement, and sentence punctuation.</p>
+                        <p data-i18n="amh-u3"><strong>Unit 3: Writing & Composition (ድርሰት ጽሕፈት):</strong> Descriptive paragraphs, formal letters, and logical coherence.</p>
+                    </div>
+                </div>
+
+                <div class="border border-slate-200 rounded-lg overflow-hidden">
+                    <button onclick="toggleAccordion('cur-eng')" class="w-full bg-slate-50 p-4 text-left font-bold text-slate-700 flex justify-between items-center hover:bg-slate-100">
+                        <span><i class="fas fa-language text-indigo-600 mr-2"></i> <span data-i18n="subject-english">English Language</span></span>
+                        <i class="fas fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="cur-eng" class="p-4 bg-white border-t border-slate-100 space-y-2 text-sm text-slate-600">
+                        <p data-i18n="eng-u1"><strong>Units 1-3: Tenses & Grammar:</strong> Simple past, present perfect, adverbs, and comparative adjectives.</p>
+                        <p data-i18n="eng-u2"><strong>Units 4-6: Reading & Vocabulary:</strong> Context clues, synonym/antonym identification, and passages on health and nature.</p>
+                    </div>
+                </div>
+
                 <div class="border border-slate-200 rounded-lg overflow-hidden">
                     <button onclick="toggleAccordion('cur-math')" class="w-full bg-slate-50 p-4 text-left font-bold text-slate-700 flex justify-between items-center hover:bg-slate-100">
-                        <span><i class="fas fa-calculator text-blue-600 mr-2"></i> <span data-i18n="math-framework">Mathematics Framework</span></span>
+                        <span><i class="fas fa-calculator text-blue-600 mr-2"></i> <span data-i18n="subject-math">Mathematics (ሒሳብ)</span></span>
                         <i class="fas fa-chevron-down text-slate-400"></i>
                     </button>
                     <div id="cur-math" class="p-4 bg-white border-t border-slate-100 space-y-2 text-sm text-slate-600">
-                        <p data-i18n="math-u1"><strong>Unit 1: Whole Numbers & Operations:</strong> Place value, prime factorization, LCM, and HCF.</p>
-                        <p data-i18n="math-u2"><strong>Unit 2: Fractions and Decimals:</strong> Conversion, simplification, mixed arithmetic.</p>
-                        <p data-i18n="math-u3"><strong>Unit 3: Ratios & Percentages:</strong> Real-world rate calculations and conversions.</p>
+                        <p data-i18n="math-u1"><strong>Unit 1: Whole Numbers & Operations:</strong> Place value, prime factorization, LCM, and GCF.</p>
+                        <p data-i18n="math-u2"><strong>Unit 2: Fractions and Decimals:</strong> Simplification, operational order, and conversions.</p>
+                        <p data-i18n="math-u3"><strong>Unit 3: Geometry & Algebra:</strong> Perimeter, area calculation of plane figures, and linear equations.</p>
                     </div>
                 </div>
 
                 <div class="border border-slate-200 rounded-lg overflow-hidden">
                     <button onclick="toggleAccordion('cur-sci')" class="w-full bg-slate-50 p-4 text-left font-bold text-slate-700 flex justify-between items-center hover:bg-slate-100">
-                        <span><i class="fas fa-leaf text-emerald-600 mr-2"></i> <span data-i18n="science-framework">Environmental Science Framework</span></span>
+                        <span><i class="fas fa-leaf text-emerald-600 mr-2"></i> <span data-i18n="subject-science">General Science (አካባቢ ሳይንስ)</span></span>
                         <i class="fas fa-chevron-down text-slate-400"></i>
                     </button>
                     <div id="cur-sci" class="p-4 bg-white border-t border-slate-100 space-y-2 text-sm text-slate-600">
-                        <p data-i18n="sci-u1"><strong>Unit 1: Natural Environment of Ethiopia:</strong> Vegetation zones, wildlife, conservation.</p>
-                        <p data-i18n="sci-u2"><strong>Unit 2: Human Body Systems:</strong> Digestive, circulatory, and respiratory systems.</p>
+                        <p data-i18n="sci-u1"><strong>Unit 1: Natural Environment of Ethiopia:</strong> Climate, vegetation zones, and conservation practices.</p>
+                        <p data-i18n="sci-u2"><strong>Unit 2: Human Organ Systems:</strong> Digestive, circulatory, and respiratory function overview.</p>
+                        <p data-i18n="sci-u3"><strong>Unit 3: Matter and Energy:</strong> Forms of energy, simple machines, and physical changes.</p>
                     </div>
                 </div>
+
+                <div class="border border-slate-200 rounded-lg overflow-hidden">
+                    <button onclick="toggleAccordion('cur-soc')" class="w-full bg-slate-50 p-4 text-left font-bold text-slate-700 flex justify-between items-center hover:bg-slate-100">
+                        <span><i class="fas fa-globe-africa text-amber-600 mr-2"></i> <span data-i18n="subject-social">Social Studies (ኅብረተሰብ ሳይንስ)</span></span>
+                        <i class="fas fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="cur-soc" class="p-4 bg-white border-t border-slate-100 space-y-2 text-sm text-slate-600">
+                        <p data-i18n="soc-u1"><strong>Unit 1: Physical Geography:</strong> Map reading, relief features, and climate of Ethiopia.</p>
+                        <p data-i18n="soc-u2"><strong>Unit 2: History & Heritage:</strong> Historical kingdoms, cultural heritages, and social development.</p>
+                    </div>
+                </div>
+
+                <div class="border border-slate-200 rounded-lg overflow-hidden">
+                    <button onclick="toggleAccordion('cur-civ')" class="w-full bg-slate-50 p-4 text-left font-bold text-slate-700 flex justify-between items-center hover:bg-slate-100">
+                        <span><i class="fas fa-scale-balanced text-purple-600 mr-2"></i> <span data-i18n="subject-civics">Moral & Civic Education (ግብረ ገብ)</span></span>
+                        <i class="fas fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="cur-civ" class="p-4 bg-white border-t border-slate-100 space-y-2 text-sm text-slate-600">
+                        <p data-i18n="civ-u1"><strong>Unit 1: Ethics and Rules:</strong> Self-discipline, truthfulness, and community norms.</p>
+                        <p data-i18n="civ-u2"><strong>Unit 2: Constitutional Rights:</strong> Equality, human rights, and duties of a citizen.</p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -181,7 +274,7 @@
                 <div class="flex justify-end">
                     <button onclick="switchTab('dashboard')" class="text-xs text-ethBlue font-bold hover:underline flex items-center space-x-1">
                         <i class="fas fa-arrow-left"></i>
-                        <span data-i18n="back-to-home">Back to Home</span>
+                        <span data-i18n="back-to-home">Back to Home Screen</span>
                     </button>
                 </div>
                 
@@ -197,17 +290,20 @@
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2" data-i18n="select-subject">Select Examination Subject</label>
                         <select id="exam-subject-select" class="w-full border border-slate-300 rounded-lg p-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-ethBlue font-medium">
-                            <option value="math">Mathematics (ሒሳብ)</option>
-                            <option value="science">Environmental Science (አካባቢ ሳይንስ)</option>
+                            <option value="amharic">Amharic (አማርኛ)</option>
                             <option value="english">English Language</option>
+                            <option value="math">Mathematics (ሒሳብ)</option>
+                            <option value="science">General Science (አካባቢ ሳይንስ)</option>
+                            <option value="social">Social Studies (ኅብረተሰብ ሳይንስ)</option>
+                            <option value="civics">Moral & Civic Education (ግብረ ገብ)</option>
                         </select>
                     </div>
 
                     <div class="bg-amber-50 p-4 rounded-lg border border-amber-200 text-amber-800 text-xs space-y-1">
                         <p class="font-bold"><i class="fas fa-info-circle mr-1"></i> <span data-i18n="exam-rules-title">Examination Rules:</span></p>
                         <ul class="list-disc list-inside space-y-0.5" data-i18n="exam-rules-list">
-                            <li>Timed simulator providing standard Ministry-style questions.</li>
-                            <li>Immediate scoring with step-by-step rationales upon completion.</li>
+                            <li>Timed practice exam structured on regional standards.</li>
+                            <li>Instant score computation and step-by-step diagnostic solutions.</li>
                         </ul>
                     </div>
                 </div>
@@ -220,7 +316,7 @@
             <div id="exam-active" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                 <div class="bg-slate-800 text-white p-4 flex justify-between items-center">
                     <div>
-                        <span id="active-subject-title" class="font-bold">Mathematics Mock Exam</span>
+                        <span id="active-subject-title" class="font-bold">Grade 6 Examination</span>
                         <span class="text-xs text-slate-400 block" data-i18n="grade6-standard">Grade 6 Regional Standard</span>
                     </div>
                     <div class="flex items-center space-x-2 bg-slate-700 px-3 py-1.5 rounded-lg text-ethYellow font-mono font-bold">
@@ -274,6 +370,94 @@
 
         </section>
 
+        <section id="tab-pdf" class="tab-content hidden space-y-6">
+            
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-200 pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800" data-i18n="pdf-builder-title">Printable Exam Paper Generator</h2>
+                        <p class="text-slate-500 text-xs mt-1" data-i18n="pdf-builder-sub">Generate formatted Ministry-standard offline examination papers with separate answer keys for classroom or home practice.</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 flex space-x-2">
+                        <button onclick="generatePDF()" class="bg-ethGreen hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-all flex items-center space-x-2 shadow">
+                            <i class="fas fa-download"></i>
+                            <span data-i18n="btn-download-pdf">Download PDF Document</span>
+                        </button>
+                        <button onclick="printExamPaper()" class="bg-ethBlue hover:bg-blue-900 text-white font-bold px-4 py-2 rounded-lg text-sm transition-all flex items-center space-x-2 shadow">
+                            <i class="fas fa-print"></i>
+                            <span data-i18n="btn-print-paper">Print Test Paper</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1" data-i18n="pdf-select-subject">Subject</label>
+                        <select id="pdf-subject" onchange="renderPDFPreview()" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-ethBlue">
+                            <option value="amharic">Amharic (አማርኛ)</option>
+                            <option value="english">English Language</option>
+                            <option value="math">Mathematics (ሒሳብ)</option>
+                            <option value="science">General Science (አካባቢ ሳይንስ)</option>
+                            <option value="social">Social Studies (ኅብረተሰብ ሳይንስ)</option>
+                            <option value="civics">Moral & Civic Education (ግብረ ገብ)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1" data-i18n="pdf-include-answers">Answer Key Settings</label>
+                        <select id="pdf-answers-option" onchange="renderPDFPreview()" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-ethBlue">
+                            <option value="include">Include Answer Key on Final Page</option>
+                            <option value="exclude">Questions Only (Student Worksheets)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1" data-i18n="pdf-school-name">School / Region Name</label>
+                        <input type="text" id="pdf-school-input" oninput="renderPDFPreview()" value="Central Regional Educational Assessment Board" class="w-full border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-ethBlue">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-200 p-4 md:p-8 rounded-xl flex justify-center overflow-x-auto">
+                <div id="pdf-paper-template" class="bg-white text-black p-8 md:p-12 shadow-2xl max-w-3xl w-full text-sm leading-relaxed border border-slate-300 rounded-sm">
+                    
+                    <div class="text-center border-b-2 border-slate-900 pb-4 mb-6 space-y-1">
+                        <div class="flex items-center justify-between text-xs font-mono mb-2">
+                            <span>ETHIOPIAN MOE STANDARD</span>
+                            <span id="pdf-preview-region" class="font-bold">GRADE 6 REGIONAL ASSESSMENT</span>
+                        </div>
+                        <h1 class="text-xl font-bold uppercase tracking-wide" id="pdf-school-title">Central Regional Educational Assessment Board</h1>
+                        <h2 class="text-base font-semibold text-slate-700" id="pdf-subject-title">GRADE 6 EXAMINATION - MATHEMATICS</h2>
+                        <div class="flex justify-between items-center text-xs text-slate-600 pt-2 border-t border-slate-200 mt-2">
+                            <span>Time Allowed: <strong>45 Minutes</strong></span>
+                            <span>Total Marks: <strong>100%</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 border border-slate-400 p-3 text-xs mb-6 rounded-sm">
+                        <div><strong>Student Name:</strong> ___________________________</div>
+                        <div><strong>Roll Number:</strong> _________________</div>
+                        <div><strong>School Name:</strong> ____________________________</div>
+                        <div><strong>Section / Room:</strong> ______________</div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-300 p-3 rounded-sm mb-6 text-xs">
+                        <p class="font-bold underline mb-1">GENERAL INSTRUCTIONS FOR CANDIDATES:</p>
+                        <ol class="list-decimal list-inside space-y-0.5">
+                            <li>Write your full details clearly in the box provided above.</li>
+                            <li>Read every question carefully before marking your answer choice.</li>
+                            <li>Select the best answer from the given alternatives (A, B, C, or D).</li>
+                        </ol>
+                    </div>
+
+                    <div id="pdf-questions-container" class="space-y-6 text-slate-900">
+                        </div>
+
+                    <div id="pdf-answer-key-wrapper" class="mt-12 pt-6 border-t-2 border-dashed border-slate-400">
+                        </div>
+
+                </div>
+            </div>
+        </section>
+
         <section id="tab-analytics" class="tab-content hidden space-y-6">
             <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                 <div>
@@ -290,6 +474,26 @@
                 <div class="space-y-4">
                     <div>
                         <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span data-i18n="subject-amharic">Amharic</span>
+                            <span class="text-ethGreen">80% <span data-i18n="competency">Competency</span></span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                            <div class="bg-ethGreen h-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span data-i18n="subject-english">English Language</span>
+                            <span class="text-ethYellow">65% <span data-i18n="competency">Competency</span></span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                            <div class="bg-ethYellow h-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
                             <span data-i18n="subject-math">Mathematics</span>
                             <span class="text-ethGreen">75% <span data-i18n="competency">Competency</span></span>
                         </div>
@@ -300,11 +504,31 @@
 
                     <div>
                         <div class="flex justify-between text-sm font-semibold mb-1">
-                            <span data-i18n="subject-science">Environmental Science</span>
+                            <span data-i18n="subject-science">General Science</span>
                             <span class="text-ethBlue">85% <span data-i18n="competency">Competency</span></span>
                         </div>
                         <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
                             <div class="bg-ethBlue h-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span data-i18n="subject-social">Social Studies</span>
+                            <span class="text-ethGreen">70% <span data-i18n="competency">Competency</span></span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                            <div class="bg-ethGreen h-full" style="width: 70%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span data-i18n="subject-civics">Moral & Civic Education</span>
+                            <span class="text-ethBlue">90% <span data-i18n="competency">Competency</span></span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                            <div class="bg-ethBlue h-full" style="width: 90%"></div>
                         </div>
                     </div>
                 </div>
@@ -315,48 +539,49 @@
 
     <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs space-y-2">
-            <p>&copy; 2026 EthioExam Grade 6. <span data-i18n="footer-tag">Aligned with Ethiopian Ministry of Education Standards.</span></p>
+            <p>&copy; 2026 EthioExam Grade 6 Assessment Engine. <span data-i18n="footer-tag">Aligned with Ethiopian Ministry of Education Standards.</span></p>
         </div>
     </footer>
 
     <script>
-        // Language Dictionary
+        // Dictionary mapping for Bilingual support
         const translations = {
             en: {
                 "nav-dashboard": "Dashboard",
                 "nav-curriculum": "Curriculum Map",
                 "nav-exam": "Mock Exam Engine",
+                "nav-pdf": "PDF Generator",
                 "nav-analytics": "Performance Analytics",
                 "moe-badge": "MoE Standard Active",
                 "hero-title": "Grade 6 Regional Ministry Exam Prep",
-                "hero-subtitle": "Comprehensive review engine structured around the new Ethiopian National Curriculum standard for Primary Schools.",
+                "hero-subtitle": "Comprehensive review engine structured around the Ethiopian National Curriculum standard for Primary Schools.",
                 "btn-start-exam": "Start Mock Examination",
+                "btn-download-pdf-hero": "Generate Offline Exam PDF",
                 "btn-explore-curriculum": "Explore Curriculum",
                 "core-modules": "Grade 6 Core Learning Modules",
                 "units": "Units",
                 "coverage": "Target Coverage: 100%",
                 "view-syllabus": "View Syllabus →",
+                "subject-amharic": "Amharic (አማርኛ)",
+                "amharic-desc": "Comprehension, grammar, vocabulary, oral expression, and literary structure.",
+                "subject-english": "English Language",
+                "english-desc": "Reading comprehension, active grammar usage, tenses, and situational composition.",
                 "subject-math": "Mathematics (ሒሳብ)",
-                "math-desc": "Integers, fractions, ratios, basic geometry, perimeter, area, and algebraic expressions.",
-                "subject-science": "Environmental Science (አካባቢ ሳይንስ)",
-                "science-desc": "Ecosystems, natural resources in Ethiopia, body systems, energy, and weather.",
-                "subject-english": "English for Ethiopia",
-                "english-desc": "Reading comprehension, grammar, vocabulary development, and situational writing.",
+                "math-desc": "Integers, fractions, ratios, geometry, perimeter, area, and single-variable equations.",
+                "subject-science": "General Science (አካባቢ ሳይንስ)",
+                "science-desc": "Ecosystems, body systems, energy transformations, matter, and Ethiopian resources.",
+                "subject-social": "Social Studies (ኅብረተሰብ ሳይንስ)",
+                "social-desc": "Ethiopian physical geography, historical civilizations, population, and economic activities.",
+                "subject-civics": "Moral & Civic Education (ግብረ ገብ)",
+                "civics-desc": "Democracy, constitutional rights, ethics, civic responsibilities, and conflict resolution.",
                 "back-to-home": "Back to Home Screen",
-                "curriculum-heading": "MoE Ethiopian National Curriculum Standard Analysis",
-                "curriculum-sub": "Structured topic breakdown aligned with Ministry of Education standards.",
-                "math-framework": "Mathematics Framework",
-                "math-u1": "Unit 1: Whole Numbers & Operations: Place value, prime factorization, LCM, and HCF.",
-                "math-u2": "Unit 2: Fractions and Decimals: Conversion, simplification, mixed arithmetic.",
-                "math-u3": "Unit 3: Ratios & Percentages: Real-world rate calculations and conversions.",
-                "science-framework": "Environmental Science Framework",
-                "sci-u1": "Unit 1: Natural Environment of Ethiopia: Vegetation zones, wildlife, conservation.",
-                "sci-u2": "Unit 2: Human Body Systems: Digestive, circulatory, and respiratory systems.",
+                "curriculum-heading": "MoE Ethiopian Curriculum Breakdown",
+                "curriculum-sub": "Detailed breakdown aligned with Ministry of Education standards for Grade 6 assessments.",
                 "exam-title": "Ministry Grade 6 Assessment Engine",
                 "exam-subtitle": "Select a subject to start the timed practice exam.",
                 "select-subject": "Select Examination Subject",
                 "exam-rules-title": "Examination Rules:",
-                "exam-rules-list": "<li>Timed simulator providing standard Ministry-style questions.</li><li>Immediate scoring with step-by-step rationales upon completion.</li>",
+                "exam-rules-list": "<li>Timed practice exam structured on regional standards.</li><li>Instant score computation and step-by-step diagnostic solutions.</li>",
                 "btn-start-now": "Start Examination Now",
                 "grade6-standard": "Grade 6 Regional Standard",
                 "exit-exam": "Exit Exam",
@@ -368,6 +593,13 @@
                 "status": "Status",
                 "explanations-title": "Question Explanations",
                 "btn-retake": "Take Another Exam",
+                "pdf-builder-title": "Printable Exam Paper Generator",
+                "pdf-builder-sub": "Generate formatted Ministry-standard offline examination papers with separate answer keys for classroom or home practice.",
+                "btn-download-pdf": "Download PDF Document",
+                "btn-print-paper": "Print Test Paper",
+                "pdf-select-subject": "Subject",
+                "pdf-include-answers": "Answer Key Settings",
+                "pdf-school-name": "School / Region Name",
                 "analytics-title": "Student Progress & Diagnostic Tracking",
                 "analytics-subtitle": "Real-time breakdown of subject competencies based on practice exam history.",
                 "competency": "Competency",
@@ -377,32 +609,33 @@
                 "nav-dashboard": "ዋና ገጽ",
                 "nav-curriculum": "የትምህርት ካርታ",
                 "nav-exam": "የፈተና ሞተር",
+                "nav-pdf": "የፒ.ዲ.ኤፍ ማውረጃ",
                 "nav-analytics": "የውጤት ትንተና",
                 "moe-badge": "የትምህርት ሚኒስቴር መስፈርት",
                 "hero-title": "የ6ኛ ክፍል ክልላዊ ሚኒስቴር ፈተና ዝግጅት",
-                "hero-subtitle": "በአዲሱ የኢትዮጵያ የመጀመሪያ ደረጃ ትምህርት ስርአተ-ትምህርት መሰረት የተዘጋጀ ሁሉን አቀፍ የመለማመጃ ፖርታል::",
+                "hero-subtitle": "በኢትዮጵያ የመጀመርያ ደረጃ ትምህርት ስርአተ-ትምህርት መሰረት የተዘጋጀ ሁሉን አቀፍ የመለማመጃ ፖርታል::",
                 "btn-start-exam": "የሞዴል ፈተና ጀምር",
+                "btn-download-pdf-hero": "የፈተና ፒ.ዲ.ኤፍ ያውርዱ",
                 "btn-explore-curriculum": "ስርዓተ-ትምህርቱን እይ",
                 "core-modules": "የ6ኛ ክፍል ዋና የትምህርት ክፍሎች",
                 "units": "ምዕራፎች",
                 "coverage": "የተሸፈነ: 100%",
                 "view-syllabus": "ይዘቱን እይ →",
-                "subject-math": "ሒሳብ (Mathematics)",
-                "math-desc": "ሙሉ ቁጥሮች፣ fraction፣ ጥ অনুপাত፣ መሠረታዊ ጂኦሜትሪ፣ ዙሪያ፣ ስፋት እና አልጀብራ።",
-                "subject-science": "አካባቢ ሳይንስ (Environmental Science)",
-                "science-desc": "ሥነ-ምህዳር፣ የኢትዮጵያ የተፈጥሮ ሀብቶች፣ የሰውነት ክፍሎች፣ ኃይል እና አየር ሁኔታ።",
-                "subject-english": "እንግሊዝኛ (English for Ethiopia)",
+                "subject-amharic": "አማርኛ (Amharic)",
+                "amharic-desc": "ማንበብና መረዳት፣ ሰዋሰው፣ የቃላት እውቀት፣ እና የስነ-ጽሁፍ ውቅር።",
+                "subject-english": "እንግሊዝኛ (English)",
                 "english-desc": "ምንባብ፣ ሰዋሰው፣ የቃላት እውቀት እና ጽሁፍ።",
+                "subject-math": "ሒሳብ (Mathematics)",
+                "math-desc": "ሙሉ ቁጥሮች፣ ፍራክሽኖች፣ ንፅፅር፣ ጂኦሜትሪ፣ ዙሪያ፣ ስፋት እና አልጀብራ።",
+                "subject-science": "ጠቅላላ / አካባቢ ሳይንስ (General Science)",
+                "science-desc": "ሥነ-ምህዳር፣ የሰውነት ክፍሎች፣ የኃይል ለውጦች፣ እና የተፈጥሮ ሀብቶች።",
+                "subject-social": "ኅብረተሰብ ሳይንስ (Social Studies)",
+                "social-desc": "የኢትዮጵያ ጂኦግራፊ፣ የታሪክ ስልጣኔዎች፣ የህዝብ ብዛት እና ኢኮኖሚ።",
+                "subject-civics": "ግብረ ገብና ዜግነት (Moral & Civics)",
+                "civics-desc": "ዲሞክራሲ፣ ህገ-መንግስታዊ መብቶች፣ ስነ-ምግባር፣ እና የዜግነት ሀላፊነቶች።",
                 "back-to-home": "ወደ ዋና ገጽ ተመለስ",
                 "curriculum-heading": "የኢትዮጵያ ብሔራዊ ሥርዓተ-ትምህርት ትንተና",
                 "curriculum-sub": " በትምህርት ሚኒስቴር መስፈርት መሠረት የተዋቀረ የትምህርት ይዘት።",
-                "math-framework": "የሒሳብ ትምህርት ማዕቀፍ",
-                "math-u1": "ምዕራፍ 1: ሙሉ ቁጥሮች እና ስሌቶች: የቦታ ዋጋ፣ ብቸኛ ቁጥሮች፣ ት.አ.ብ እና ታ.አ.ብ።",
-                "math-u2": "ምዕራፍ 2: ፍራክሽኖች እና አስርዮሾች: ለውጥ፣ ማቃለል እና ስሌቶች።",
-                "math-u3": "ምዕራፍ 3: ንፅፅር እና ፐርሰንት: የእለት ተእለት ስሌቶች።",
-                "science-framework": "የአካባቢ ሳይንስ ማዕቀፍ",
-                "sci-u1": "ምዕራፍ 1: የኢትዮጵያ ተፈጥሮአዊ አካባቢ: የዕፅዋት ክልሎች፣ የዱር እንስሳት እና እንክብካቤ።",
-                "sci-u2": "ምዕራፍ 2: የሰው አካል ስርዓቶች: የምግብ መፈጨት፣ የደም ዝውውር እና የመተንፈሻ አካላት።",
                 "exam-title": "የ6ኛ ክፍል የፈተና ማዕከል",
                 "exam-subtitle": "የልምምድ ፈተና ለመጀመር ትምህርት ይምረጡ።",
                 "select-subject": "የፈተና ትምህርት ይምረጡ",
@@ -419,6 +652,13 @@
                 "status": "ሁኔታ",
                 "explanations-title": "የጥያቄዎች ማብራሪያ",
                 "btn-retake": "ሌላ ፈተና ውሰድ",
+                "pdf-builder-title": "የሚታተም የፈተና ወረቀት ማዘጋጃ",
+                "pdf-builder-sub": "በትምህርት ቤት ወይም በቤት ውስጥ ለልምምድ የሚሆኑ የጽሑፍ ፈተናዎችን ከመልስ ቁልፍ ጋር ያዘጋጁ::",
+                "btn-download-pdf": "ፒ.ዲ.ኤፍ አውርድ",
+                "btn-print-paper": "ፈተናውን አትም",
+                "pdf-select-subject": "ትምህርት",
+                "pdf-include-answers": "የመልስ ቁልፍ ማካተቻ",
+                "pdf-school-name": "የትምህርት ቤቱ / የዞኑ ስም",
                 "analytics-title": "የተማሪ እድገትና ክትትል",
                 "analytics-subtitle": "ከወሰዷቸው ፈተናዎች የተሰበሰበ የቀጥታ የትምህርት ብቃት።",
                 "competency": "ብቃት",
@@ -426,38 +666,66 @@
             }
         };
 
-        // Complete Exam Questions (Available in Both Amharic & English)
+        // Questions Database
         const questionBank = {
-            math: {
+            amharic: {
                 en: [
-                    { q: "What is the Least Common Multiple (LCM) of 6 and 8?", options: ["12", "24", "48", "14"], correct: 1, explanation: "Multiples of 6: 6, 12, 18, 24... Multiples of 8: 8, 16, 24... Smallest common is 24." },
-                    { q: "Find the area of a rectangle with length 12 cm and width 5 cm.", options: ["17 cm²", "34 cm²", "60 cm²", "50 cm²"], correct: 2, explanation: "Area = length × width = 12 cm × 5 cm = 60 cm²." },
-                    { q: "Solve for x: 2x + 4 = 12", options: ["x = 4", "x = 6", "x = 8", "x = 2"], correct: 0, explanation: "2x = 12 - 4 => 2x = 8 => x = 4." }
+                    { q: "በ 'አበበ መጽሐፉን አነበበ' ዓረፍተ ነገር ውስጥ ግሱ የትኛው ነው?", options: ["አበበ", "መጽሐፉን", "አነበበ", "የለም"], correct: 2, explanation: "በአማርኛ ሰዋሰው 'አነበበ' ድርጊትን የሚገልፅ ግስ ነው።" },
+                    { q: "የ 'ተጉ/ጎበዝ' ተቃራኒ ቃል የትኛው ነው?", options: ["ሰነፍ", "ብርቱ", "ፈጣን", "ትጉህ"], correct: 0, explanation: "የተጉ ወይም የጎበዝ ተቃራኒ ሰነፍ ነው።" }
                 ],
                 am: [
-                    { q: "የ 6 እና 8 ትንሹ የጋራ ብዜት (ታ.አ.ብ) ስንት ነው?", options: ["12", "24", "48", "14"], correct: 1, explanation: "የ 6 ብዜቶች: 6, 12, 18, 24... የ 8 ብዜቶች: 8, 16, 24... ትንሹ የጋራ ብዜት 24 ነው።" },
-                    { q: "ርዝመቱ 12 ሴ.ሜ እና ጎኑ 5 ሴ.ሜ የሆነ ሬክታንግል ስፋት ስንት ነው?", options: ["17 ሴ.ሜ²", "34 ሴ.ሜ²", "60 ሴ.ሜ²", "50 ሴ.ሜ²"], correct: 2, explanation: "ስፋት = ርዝመት × ጎን = 12 ሴ.ሜ × 5 ሴ.ሜ = 60 ሴ.ሜ²።" },
-                    { q: "x ን ፈልግ: 2x + 4 = 12", options: ["x = 4", "x = 6", "x = 8", "x = 2"], correct: 0, explanation: "2x = 12 - 4 => 2x = 8 => x = 4።" }
-                ]
-            },
-            science: {
-                en: [
-                    { q: "Which organ system is responsible for transporting oxygen in the human body?", options: ["Digestive System", "Circulatory System", "Respiratory System", "Nervous System"], correct: 1, explanation: "The circulatory system carries oxygen and nutrients using blood." },
-                    { q: "What is a main cause of soil erosion in highlands of Ethiopia?", options: ["Reforestation", "Deforestation", "Crop Rotation", "Terracing"], correct: 1, explanation: "Deforestation removes roots holding soil together." }
-                ],
-                am: [
-                    { q: "በሰው አካል ውስጥ ኦክስጅንን ለማሰራጨት ኃላፊነት ያለው ሥርዓት የትኛው ነው?", options: ["የምግብ መፈጨት ሥርዓት", "የደም ዝውውር ሥርዓት", "የመተንፈሻ ሥርዓት", "የነርቭ ሥርዓት"], correct: 1, explanation: "የደም ዝውውር ሥርዓት ደምን በመጠቀም ኦክስጅንን በመላው አካል ያሰራጫል።" },
-                    { q: "በኢትዮጵያ ደጋማ ቦታዎች ለነፋስና አፈር መሸርሸር ዋነኛው ምክንያት ምንድነው?", options: ["ዛፍ መትከል", "ደን ጨፍጨፋ", "የሰብል ፈራቃ", " እርከን መስራት"], correct: 1, explanation: "ደን ጨፍጨፋ አፈርን ይዘው የሚይዙ ዕፅዋትን ያጠፋል።" }
+                    { q: "በ 'አበበ መጽሐፉን አነበበ' ዓረፍተ ነገር ውስጥ ግሱ የትኛው ነው?", options: ["አበበ", "መጽሐፉን", "አነበበ", "የለም"], correct: 2, explanation: "በአማርኛ ሰዋሰው 'አነበበ' ድርጊትን የሚገልፅ ግስ ነው።" },
+                    { q: "የ 'ተጉ/ጎበዝ' ተቃራኒ ቃል የትኛው ነው?", options: ["ሰነፍ", "ብርቱ", "ፈጣን", "ትጉህ"], correct: 0, explanation: "የተጉ ወይም የጎበዝ ተቃራኒ ሰነፍ ነው።" }
                 ]
             },
             english: {
                 en: [
-                    { q: "Choose the correct past tense verb: 'She ________ to the market yesterday.'", options: ["go", "goes", "went", "gone"], correct: 2, explanation: "'Yesterday' denotes past action, so 'went' is used." },
-                    { q: "Identify the antonym of 'Ancient':", options: ["Old", "Modern", "Historic", "Traditional"], correct: 1, explanation: "'Ancient' means very old; the opposite is 'Modern'." }
+                    { q: "Select the correct past tense verb: 'They ________ soccer yesterday.'", options: ["play", "played", "playing", "plays"], correct: 1, explanation: "'Yesterday' signals past tense, requiring 'played'." },
+                    { q: "Identify the antonym of the word 'Ancient':", options: ["Old", "Modern", "Historic", "Aged"], correct: 1, explanation: "'Ancient' means very old; its opposite is 'Modern'." }
                 ],
                 am: [
-                    { q: "Choose the correct past tense verb: 'She ________ to the market yesterday.'", options: ["go", "goes", "went", "gone"], correct: 2, explanation: "'Yesterday' denotes past action, so 'went' is used." },
-                    { q: "Identify the antonym of 'Ancient':", options: ["Old", "Modern", "Historic", "Traditional"], correct: 1, explanation: "'Ancient' means very old; the opposite is 'Modern'." }
+                    { q: "Select the correct past tense verb: 'They ________ soccer yesterday.'", options: ["play", "played", "playing", "plays"], correct: 1, explanation: "'Yesterday' signals past tense, requiring 'played'." },
+                    { q: "Identify the antonym of the word 'Ancient':", options: ["Old", "Modern", "Historic", "Aged"], correct: 1, explanation: "'Ancient' means very old; its opposite is 'Modern'." }
+                ]
+            },
+            math: {
+                en: [
+                    { q: "What is the Least Common Multiple (LCM) of 6 and 8?", options: ["12", "24", "48", "14"], correct: 1, explanation: "Multiples of 6: 6, 12, 18, 24... Multiples of 8: 8, 16, 24... Smallest common multiple is 24." },
+                    { q: "Find the area of a rectangle with length 10 cm and width 4 cm.", options: ["14 cm²", "28 cm²", "40 cm²", "50 cm²"], correct: 2, explanation: "Area = length × width = 10 cm × 4 cm = 40 cm²." }
+                ],
+                am: [
+                    { q: "የ 6 እና 8 ትንሹ የጋራ ብዜት (ታ.አ.ብ) ስንት ነው?", options: ["12", "24", "48", "14"], correct: 1, explanation: "የ 6 ብዜቶች: 6, 12, 18, 24... የ 8 ብዜቶች: 8, 16, 24... ትንሹ የጋራ ብዜት 24 ነው።" },
+                    { q: "ርዝመቱ 10 ሴ.ሜ እና ጎኑ 4 ሴ.ሜ የሆነ ሬክታንግል ስፋት ስንት ነው?", options: ["14 ሴ.ሜ²", "28 ሴ.ሜ²", "40 ሴ.ሜ²", "50 ሴ.ሜ²"], correct: 2, explanation: "ስፋት = ርዝመት × ጎን = 10 ሴ.ሜ × 4 ሴ.ሜ = 40 ሴ.ሜ²።" }
+                ]
+            },
+            science: {
+                en: [
+                    { q: "Which organ system transports oxygen and nutrients throughout the body?", options: ["Digestive System", "Circulatory System", "Respiratory System", "Nervous System"], correct: 1, explanation: "The circulatory system (heart & blood vessels) transports oxygen." },
+                    { q: "Which process involves planting trees to prevent soil erosion?", options: ["Deforestation", "Reforestation", "Overgrazing", "Urbanization"], correct: 1, explanation: "Reforestation restores plant roots that anchor soil." }
+                ],
+                am: [
+                    { q: "በሰው አካል ውስጥ ኦክስጅንንና ምግቦችን የሚያሰራጨው ሥርዓት የትኛው ነው?", options: ["የምግብ መፈጨት ሥርዓት", "የደም ዝውውር ሥርዓት", "የመተንፈሻ ሥርዓት", "የነርቭ ሥርዓት"], correct: 1, explanation: "የደም ዝውውር ሥርዓት ደምን በመጠቀም ኦክስጅንን በመላው አካል ያሰራጫል።" },
+                    { q: "የአፈር መሸርሸርን ለመከላከል ዛፎችን የመትከል ሂደት ምን ይባላል?", options: ["ደን ጨፍጨፋ", "ዛፍ መትከል (Reforestation)", "ላም ማሰማራት", "ከተማ ማስፋፋት"], correct: 1, explanation: "ዛፎችን መትከል አፈር እንዳይሸረሸር ያደርጋል።" }
+                ]
+            },
+            social: {
+                en: [
+                    { q: "Which is the longest river in Ethiopia?", options: ["Awash River", "Abbay (Blue Nile) River", "Omo River", "Wabe Shebelle"], correct: 1, explanation: "Abbay (Blue Nile) is the largest and longest river system in Ethiopia." },
+                    { q: "Which historic site in Ethiopia is famous for its rock-hewn churches?", options: ["Axum Obelisks", "Lalibela", "Fasil Ghebbi", "Tiya"], correct: 1, explanation: "Lalibela is world-famous for its 11 monolithic rock-hewn churches." }
+                ],
+                am: [
+                    { q: "በኢትዮጵያ ውስጥ ረጅሙ ወንዝ የትኛው ነው?", options: ["አዋሽ ወንዝ", "ዓባይ ወንዝ", "ኦሞ ወንዝ", "ዋቢ ሸበሌ"], correct: 1, explanation: "ዓባይ በኢትዮጵያ ውስጥ ትልቁ እና ረጅሙ ወንዝ ነው።" },
+                    { q: "ከዓለት በተፈለፈሉ አብያተ ክርስቲያናት የሚታወቀው የኢትዮጵያ የታሪክ ቦታ የትኛው ነው?", options: ["የአክሱም ሐውልት", "ላሊበላ", "ፋሲል ግቢ", "ጢያ"], correct: 1, explanation: "ላሊበላ ከዓለት በተፈለፈሉ 11 አብያተ ክርስቲያናቱ ይታወቃል።" }
+                ]
+            },
+            civics: {
+                en: [
+                    { q: "What is a primary obligation of a responsible citizen?", options: ["Violating rules", "Paying taxes and respecting laws", "Ignoring community issues", "Avoiding school"], correct: 1, explanation: "A good citizen respects community laws and pays taxes." },
+                    { q: "Which core principle ensures that all citizens are treated equally under the law?", options: ["Partiality", "Justice & Equality", "Discrimination", "Nepotism"], correct: 1, explanation: "Justice and equality guarantee identical legal protections for all." }
+                ],
+                am: [
+                    { q: "የጥሩ እና ተጠያቂ ዜጋ ዋነኛ ግዴታ ምንድነው?", options: ["ህግ መጣስ", "ግብር መክፈል እና ህግን ማክበር", "ማህበረሰብን ችላ ማለት", "ትምህርት ማቋረጥ"], correct: 1, explanation: "ጥሩ ዜጋ የሀገሪቱን ህግ ያከብራል፣ ግብር ይከፍላል።" },
+                    { q: "ሁሉም ዜጎች በህግ ፊት እኩል መሆናቸውን የሚያረጋግጠው መመሪያ የትኛው ነው?", options: ["አድልዎ", "ፍትህ እና እኩልነት", "መድልዎ", "ዘመድ መጥቀም"], correct: 1, explanation: "ፍትህ እና እኩልነት የሰዎችን እኩል መብት ያረጋግጣል።" }
                 ]
             }
         };
@@ -471,32 +739,30 @@
             currentLang = currentLang === 'en' ? 'am' : 'en';
             document.getElementById('lang-btn-text').textContent = currentLang === 'en' ? 'አማርኛ' : 'English';
 
-            // Apply Dynamic Text Translations
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[currentLang][key]) {
                     el.innerHTML = translations[currentLang][key];
                 }
             });
+
+            // Re-render PDF Preview if active
+            renderPDFPreview();
         }
 
-        // Navigation Switcher & Back Button Handling
+        // View Navigation Function
         function switchTab(tabId) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
             
-            // Highlight current top bar button
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('bg-white/10', 'text-white');
                 btn.classList.add('text-slate-200');
             });
 
-            // Reveal tab
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
             const navBtn = document.getElementById(`nav-${tabId}`);
             if(navBtn) navBtn.classList.add('bg-white/10', 'text-white');
 
-            // Handle Sticky Sub-navigation status bar for non-dashboard views
             const backHomeBar = document.getElementById('back-home-bar');
             const viewLabel = document.getElementById('current-view-label');
             
@@ -506,24 +772,113 @@
                 backHomeBar.classList.remove('hidden');
                 if(tabId === 'curriculum') viewLabel.textContent = currentLang === 'en' ? "Viewing: Curriculum Map" : "በመመልከት ላይ: የትምህርት ካርታ";
                 if(tabId === 'exam') viewLabel.textContent = currentLang === 'en' ? "Viewing: Exam Engine" : "በመመልከት ላይ: የፈተና ማዕከል";
+                if(tabId === 'pdf') {
+                    viewLabel.textContent = currentLang === 'en' ? "Viewing: Printable PDF Builder" : "በመመልከት ላይ: የፒ.ዲ.ኤፍ ማዘጋጃ";
+                    renderPDFPreview();
+                }
                 if(tabId === 'analytics') viewLabel.textContent = currentLang === 'en' ? "Viewing: Performance Analytics" : "በመመልከት ላይ: የውጤት ትንተና";
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Accordion Toggle Logic
         function toggleAccordion(id) {
             const el = document.getElementById(id);
             el.classList.toggle('hidden');
         }
 
-        // Exam Engine Logic
+        // --- PDF GENERATOR & PRINT CONTROLLER ---
+        function renderPDFPreview() {
+            const subject = document.getElementById('pdf-subject').value;
+            const schoolName = document.getElementById('pdf-school-input').value || "Ministry Assessment Center";
+            const includeAnswers = document.getElementById('pdf-answers-option').value === 'include';
+
+            const subjectNames = {
+                amharic: "AMHARIC LANGUAGE (አማርኛ)",
+                english: "ENGLISH LANGUAGE",
+                math: "MATHEMATICS (ሒሳብ)",
+                science: "GENERAL SCIENCE (አካባቢ ሳይንስ)",
+                social: "SOCIAL STUDIES (ኅብረተሰብ ሳይንስ)",
+                civics: "CITIZENSHIP & MORAL EDUCATION (ግብረ ገብ)"
+            };
+
+            // Dynamic header binding
+            document.getElementById('pdf-school-title').textContent = schoolName.toUpperCase();
+            document.getElementById('pdf-subject-title').textContent = `GRADE 6 EXAMINATION - ${subjectNames[subject]}`;
+
+            const questions = questionBank[subject][currentLang];
+            const qContainer = document.getElementById('pdf-questions-container');
+            const ansWrapper = document.getElementById('pdf-answer-key-wrapper');
+
+            qContainer.innerHTML = '';
+            ansWrapper.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            // Build Questions Layout
+            questions.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = "space-y-1.5 text-xs border-b border-slate-100 pb-3";
+                qDiv.innerHTML = `
+                    <p class="font-bold text-slate-900">${idx + 1}. ${q.q}</p>
+                    <div class="grid grid-cols-2 gap-2 pl-4">
+                        ${q.options.map((opt, oIdx) => `
+                            <div><span class="font-bold text-slate-700">${optionLabels[oIdx]}.</span> ${opt}</div>
+                        `).join('')}
+                    </div>
+                `;
+                qContainer.appendChild(qDiv);
+            });
+
+            // Build Answer Key if selected
+            if (includeAnswers) {
+                ansWrapper.classList.remove('hidden');
+                ansWrapper.innerHTML = `
+                    <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide mb-2 underline">OFFICIAL ANSWER KEY & RATIONALES</h3>
+                    <div class="space-y-2 text-xs">
+                        ${questions.map((q, idx) => `
+                            <div class="bg-slate-50 p-2 rounded border border-slate-200">
+                                <strong>Q${idx + 1}:</strong> Option <strong>${optionLabels[q.correct]}</strong> (${q.options[q.correct]})
+                                <p class="text-slate-600 text-[11px] mt-0.5">${q.explanation}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                ansWrapper.classList.add('hidden');
+            }
+        }
+
+        function generatePDF() {
+            const element = document.getElementById('pdf-paper-template');
+            const subject = document.getElementById('pdf-subject').value;
+            
+            const opt = {
+                margin:       0.4,
+                filename:     `EthioExam_Grade6_${subject}_Paper.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+
+        function printExamPaper() {
+            const printContents = document.getElementById('pdf-paper-template').innerHTML;
+            const originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = `<div style="padding:20px;">${printContents}</div>`;
+            window.print();
+            document.body.innerHTML = originalContents;
+            location.reload(); // Restore application state after printing
+        }
+
+        // --- EXAM SIMULATOR LOGIC ---
         function startExam() {
             const subject = document.getElementById('exam-subject-select').value;
             currentActiveQuestions = questionBank[subject][currentLang];
 
-            // Render Questions based on Language state
             const wrapper = document.getElementById('questions-wrapper');
             wrapper.innerHTML = '';
 
@@ -544,7 +899,6 @@
                 wrapper.appendChild(qBlock);
             });
 
-            // Display UI Engine
             document.getElementById('exam-launcher').classList.add('hidden');
             document.getElementById('exam-results').classList.add('hidden');
             document.getElementById('exam-active').classList.remove('hidden');
