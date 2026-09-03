@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EthioExam Grade 6 - Ministry Assessment Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ethGreen: '#009A44',
+                        ethYellow: '#FED100',
+                        ethRed: '#EF3340',
+                        ethBlue: '#002B7F',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="bg-ethBlue text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-ethBlue font-bold text-lg shadow">
+                        🇪🇹
+                    </div>
+                    <span class="font-bold text-xl tracking-tight">EthioExam <span class="text-ethYellow font-normal">Grade 6</span></span>
+                </div>
+
+                <nav class="hidden md:flex space-x-2">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white/10 text-white">
+                        <i class="fas fa-home mr-2"></i>Dashboard
+                    </button>
+                    <button onclick="switchTab('curriculum')" id="nav-curriculum" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-colors text-slate-200">
+                        <i class="fas fa-book-open mr-2"></i>Curriculum Map
+                    </button>
+                    <button onclick="switchTab('exam')" id="nav-exam" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-colors text-slate-200">
+                        <i class="fas fa-pen-nib mr-2"></i>Mock Exam Engine
+                    </button>
+                    <button onclick="switchTab('analytics')" id="nav-analytics" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-colors text-slate-200">
+                        <i class="fas fa-chart-line mr-2"></i>Performance Analytics
+                    </button>
+                </nav>
+
+                <div class="flex items-center space-x-3">
+                    <span class="bg-ethGreen text-xs text-white px-2.5 py-1 rounded-full font-semibold border border-white/20">MoE Standard Active</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <section id="tab-dashboard" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-ethBlue via-slate-800 to-ethBlue rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">Grade 6 Regional Ministry Exam Prep</h1>
+                    <p class="text-slate-300 text-sm md:text-base mb-6">Comprehensive review engine structured around the new Ethiopian National Curriculum standard for Primary Schools.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="switchTab('exam')" class="bg-ethYellow hover:bg-yellow-400 text-slate-900 font-bold px-5 py-2.5 rounded-xl shadow transition-all transform hover:-translate-y-0.5">
+                            Start Mock Examination
+                        </button>
+                        <button onclick="switchTab('curriculum')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-5 py-2.5 rounded-xl transition-all">
+                            Explore Curriculum
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center">
+                    <i class="fas fa-graduation-cap text-ethBlue mr-2"></i> Grade 6 Core Learning Modules
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-blue-50 text-blue-600 rounded-lg"><i class="fas fa-calculator text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">6 Units</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg">Mathematics (ሒሳብ)</h3>
+                        <p class="text-slate-500 text-xs mt-1">Integers, fractions, ratios, basic geometry, perimeter, area, and algebraic expressions.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fas fa-leaf text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">5 Units</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg">Environmental Science (አካባቢ ሳይንስ)</h3>
+                        <p class="text-slate-500 text-xs mt-1">Ecosystems, natural resources in Ethiopia, body systems, energy, and weather.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fas fa-language text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">10 Units</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg">English for Ethiopia</h3>
+                        <p class="text-slate-500 text-xs mt-1">Reading comprehension, grammar, vocabulary development, and situational writing.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-red-50 text-red-600 rounded-lg"><i class="fas fa-book text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">10 Units</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg">Amharic (አማርኛ)</h3>
+                        <p class="text-slate-500 text-xs mt-1">Comprehension skills, structural grammar, vocabulary, and literary appreciation.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-purple-50 text-purple-600 rounded-lg"><i class="fas fa-palette text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">5 Units</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg">Performing & Visual Arts (PVA)</h3>
+                        <p class="text-slate-500 text-xs mt-1">Traditional art form principles, music notes, basic drama, and Ethiopian craft culture.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-3 bg-amber-50 text-amber-600 rounded-lg"><i class="fas fa-globe text-xl"></i></span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">5 Units</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg">Social Studies & Citizenship</h3>
+                        <p class="text-slate-500 text-xs mt-1">Ethiopian geography, regional governance, historical landmarks, and civic duty.</p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400">Target Coverage: 100%</span>
+                            <button onclick="switchTab('curriculum')" class="text-ethBlue font-semibold hover:underline">View Syllabus &rarr;</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-curriculum" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">MoE Ethiopian National Curriculum Standard Analysis</h2>
+                <p class="text-slate-600 text-sm">Below is the structured topic breakdown aligned with Ministry of Education standards for Grade 6 assessments.</p>
+                
+                <div class="mt-6 space-y-4">
+                    
+                    <div class="border border-slate-200 rounded-lg overflow-hidden">
+                        <button onclick="toggleAccordion('cur-math')" class="w-full bg-slate-50 p-4 text-left font-bold text-slate-700 flex justify-between items-center hover:bg-slate-100">
+                            <span><i class="fas fa-calculator text-blue-600 mr-2"></i> Mathematics Framework</span>
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </button>
+                        <div id="cur-math" class="p-4 bg-white border-t border-slate-100 space-y-2 text-sm text-slate-600">
+                            <p><strong>Unit 1: Whole Numbers & Operations:</strong> Place value, prime factorization, LCM, and HCF.</p>
+                            <p><strong>Unit 2: Fractions and Decimals:</strong> Conversion, simplification, mixed arithmetic, and estimation.</p>
+                            <p><strong>Unit 3: Ratios, Proportions & Percentages:</strong> Real-world rate calculations and percentage conversions.</p>
+                            <p><strong>Unit 4: Linear Equations:</strong> Basic single-variable equations and word problems.</p>
+                            <p><strong>Unit 5: Perimeter, Area & Volume:</strong> Area of composite 2D shapes, surface area of simple solids.</p>
+                            <p><strong>Unit 6: Data Handling & Probability:</strong> Reading bar graphs, pie charts, mean, median, and mode.</p>
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-lg overflow-hidden">
+                        <button onclick="toggleAccordion('cur-sci')" class="w-full bg-slate-50 p-4 text-left font-bold text-slate-700 flex justify-between items-center hover:bg-slate-100">
+                            <span><i class="fas fa-leaf text-emerald-600 mr-2"></i> Environmental Science Framework</span>
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </button>
+                        <div id="cur-sci" class="p-4 bg-white border-t border-slate-100 space-y-2 text-sm text-slate-600">
+                            <p><strong>Unit 1: Natural Environment of Ethiopia:</strong> Vegetation zones, wildlife conservation, national parks.</p>
+                            <p><strong>Unit 2: Human Body Systems:</strong> Digestive, circulatory, and respiratory system structures.</p>
+                            <p><strong>Unit 3: Energy Types and Transformations:</strong> Solar, thermal, mechanical, and electrical energy.</p>
+                            <p><strong>Unit 4: Ecosystems & Conservation:</strong> Food chains, deforestation impacts, and soil conservation.</p>
+                            <p><strong>Unit 5: Weather & Climate:</strong> Ethiopian seasonal patterns, instruments, and climate impact on agriculture.</p>
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-lg overflow-hidden">
+                        <button onclick="toggleAccordion('cur-eng')" class="w-full bg-slate-50 p-4 text-left font-bold text-slate-700 flex justify-between items-center hover:bg-slate-100">
+                            <span><i class="fas fa-language text-indigo-600 mr-2"></i> English Language Framework</span>
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </button>
+                        <div id="cur-eng" class="p-4 bg-white border-t border-slate-100 space-y-2 text-sm text-slate-600">
+                            <p><strong>Units 1-3: Grammar & Usage:</strong> Tenses (Present Perfect, Simple Past), modal verbs, adverbs.</p>
+                            <p><strong>Units 4-6: Reading Comprehension:</strong> Expository texts regarding culture, history, and health.</p>
+                            <p><strong>Units 7-10: Vocabulary & Writing:</strong> Contextual clues, paragraph construction, formal letters.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-exam" class="tab-content hidden space-y-6">
+            
+            <div id="exam-launcher" class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm text-center max-w-2xl mx-auto space-y-6">
+                <div class="inline-flex p-4 bg-blue-50 text-ethBlue rounded-full text-3xl">
+                    <i class="fas fa-file-signature"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">Ministry Grade 6 Assessment Engine</h2>
+                    <p class="text-slate-500 text-sm mt-1">Select a subject to start the timed practice exam.</p>
+                </div>
+
+                <div class="text-left space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Select Examination Subject</label>
+                        <select id="exam-subject-select" class="w-full border border-slate-300 rounded-lg p-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-ethBlue">
+                            <option value="math">Mathematics (ሒሳብ)</option>
+                            <option value="science">Environmental Science (አካባቢ ሳይንስ)</option>
+                            <option value="english">English Language</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-amber-50 p-4 rounded-lg border border-amber-200 text-amber-800 text-xs space-y-1">
+                        <p class="font-bold"><i class="fas fa-info-circle mr-1"></i> Examination Rules:</p>
+                        <ul class="list-disc list-inside space-y-0.5">
+                            <li>Timed simulator providing standard Ministry-style questions.</li>
+                            <li>Immediate scoring with step-by-step rationales upon completion.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button onclick="startExam()" class="w-full bg-ethGreen hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-md transition-all">
+                    Start Examination Now
+                </button>
+            </div>
+
+            <div id="exam-active" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-slate-800 text-white p-4 flex justify-between items-center">
+                    <div>
+                        <span id="active-subject-title" class="font-bold">Mathematics Mock Exam</span>
+                        <span class="text-xs text-slate-400 block">Grade 6 Regional Standard</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-slate-700 px-3 py-1.5 rounded-lg text-ethYellow font-mono font-bold">
+                        <i class="fas fa-clock"></i>
+                        <span id="timer-display">15:00</span>
+                    </div>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div id="questions-wrapper" class="space-y-6">
+                        </div>
+
+                    <div class="pt-4 border-t border-slate-200 flex justify-between">
+                        <button onclick="cancelExam()" class="px-4 py-2 text-slate-500 hover:text-slate-800 text-sm font-semibold">Exit Exam</button>
+                        <button onclick="submitExam()" class="bg-ethBlue hover:bg-blue-900 text-white font-bold px-6 py-2.5 rounded-lg shadow">Submit Answers</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="exam-results" class="hidden bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm max-w-3xl mx-auto space-y-6">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl font-bold text-slate-800">Examination Results Summary</h2>
+                    <p class="text-slate-500 text-sm">Performance analysis generated against Ministry Standards.</p>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-xs text-slate-500 font-medium">Score</span>
+                        <p id="result-score" class="text-2xl font-black text-ethBlue">0/0</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-xs text-slate-500 font-medium">Percentage</span>
+                        <p id="result-percentage" class="text-2xl font-black text-ethGreen">0%</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-xs text-slate-500 font-medium">Status</span>
+                        <p id="result-status" class="text-2xl font-black text-ethYellow">--</p>
+                    </div>
+                </div>
+
+                <div id="results-explanation" class="space-y-4 pt-4 border-t border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-lg">Question Explanations</h3>
+                    <div id="explanations-list" class="space-y-3 text-sm"></div>
+                </div>
+
+                <button onclick="resetExam()" class="w-full bg-ethBlue hover:bg-blue-900 text-white font-bold py-3 rounded-xl">Take Another Exam</button>
+            </div>
+
+        </section>
+
+        <section id="tab-analytics" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <h2 class="text-2xl font-bold text-slate-800">Student Progress & Diagnostic Tracking</h2>
+                <p class="text-slate-600 text-sm">Real-time breakdown of subject competencies based on practice exam history.</p>
+
+                <div class="space-y-4 pt-4">
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span>Mathematics</span>
+                            <span class="text-ethGreen">75% Competency</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                            <div class="bg-ethGreen h-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span>Environmental Science</span>
+                            <span class="text-ethBlue">85% Competency</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                            <div class="bg-ethBlue h-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span>English Language</span>
+                            <span class="text-ethYellow">60% Competency</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                            <div class="bg-ethYellow h-full" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs space-y-2">
+            <p>Grade 6 Ethiopian National Curriculum Portal &copy; 2026. Aligned with Ministry of Education Standards.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Question Bank for Grade 6 Ethiopian Curriculum
+        const questionBank = {
+            math: [
+                {
+                    q: "What is the Least Common Multiple (LCM) of 6 and 8?",
+                    options: ["12", "24", "48", "14"],
+                    correct: 1,
+                    explanation: "Multiples of 6: 6, 12, 18, 24... Multiples of 8: 8, 16, 24... The smallest common multiple is 24."
+                },
+                {
+                    q: "Find the area of a rectangle with length 12 cm and width 5 cm.",
+                    options: ["17 cm²", "34 cm²", "60 cm²", "50 cm²"],
+                    correct: 2,
+                    explanation: "Area of a rectangle = length × width = 12 cm × 5 cm = 60 cm²."
+                },
+                {
+                    q: "Solve for x: 2x + 4 = 12",
+                    options: ["x = 4", "x = 6", "x = 8", "x = 2"],
+                    correct: 0,
+                    explanation: "Subtract 4 from both sides: 2x = 8. Divide by 2: x = 4."
+                }
+            ],
+            science: [
+                {
+                    q: "Which organ system is primarily responsible for transporting oxygen throughout the human body?",
+                    options: ["Digestive System", "Circulatory System", "Respiratory System", "Nervous System"],
+                    correct: 1,
+                    explanation: "The circulatory system (heart, blood, blood vessels) transports oxygen and nutrients across the body."
+                },
+                {
+                    q: "Which of the following is a primary cause of soil erosion in highland regions of Ethiopia?",
+                    options: ["Reforestation", "Deforestation", "Crop Rotation", "Terracing"],
+                    correct: 1,
+                    explanation: "Deforestation removes plant roots that hold topsoil together, leading to severe erosion during heavy rains."
+                }
+            ],
+            english: [
+                {
+                    q: "Choose the correct verb form: 'She ________ to the market yesterday.'",
+                    options: ["go", "goes", "went", "gone"],
+                    correct: 2,
+                    explanation: "'Yesterday' indicates the simple past tense, so 'went' is the correct verb."
+                },
+                {
+                    q: "Identify the antonym of the word 'Ancient':",
+                    options: ["Old", "Modern", "Historic", "Traditional"],
+                    correct: 1,
+                    explanation: "'Ancient' means very old, so its opposite (antonym) is 'Modern'."
+                }
+            ]
+        };
+
+        let currentActiveQuestions = [];
+        let examTimerInterval;
+
+        // Navigation Handler
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-white/10', 'text-white');
+                btn.classList.add('text-slate-200');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabId}`).classList.add('bg-white/10', 'text-white');
+        }
+
+        // Accordion Toggle Logic
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+
+        // Exam Mechanics
+        function startExam() {
+            const subject = document.getElementById('exam-subject-select').value;
+            currentActiveQuestions = questionBank[subject];
+
+            // Render Questions
+            const wrapper = document.getElementById('questions-wrapper');
+            wrapper.innerHTML = '';
+
+            currentActiveQuestions.forEach((item, index) => {
+                const qBlock = document.createElement('div');
+                qBlock.className = 'p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-3';
+                qBlock.innerHTML = `
+                    <p class="font-bold text-slate-800 text-sm">${index + 1}. ${item.q}</p>
+                    <div class="space-y-2">
+                        ${item.options.map((opt, optIndex) => `
+                            <label class="flex items-center space-x-2 bg-white p-2.5 rounded border border-slate-200 cursor-pointer hover:bg-slate-100 text-sm">
+                                <input type="radio" name="question-${index}" value="${optIndex}" class="text-ethBlue focus:ring-ethBlue">
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                wrapper.appendChild(qBlock);
+            });
+
+            // UI Switching
+            document.getElementById('exam-launcher').classList.add('hidden');
+            document.getElementById('exam-results').classList.add('hidden');
+            document.getElementById('exam-active').classList.remove('hidden');
+
+            // Start Timer (15-minute countdown display mockup)
+            startTimer(15 * 60);
+        }
+
+        function startTimer(duration) {
+            let timer = duration, minutes, seconds;
+            const display = document.getElementById('timer-display');
+            clearInterval(examTimerInterval);
+            
+            examTimerInterval = setInterval(() => {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(examTimerInterval);
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        function submitExam() {
+            clearInterval(examTimerInterval);
+            let score = 0;
+            const explanationsList = document.getElementById('explanations-list');
+            explanationsList.innerHTML = '';
+
+            currentActiveQuestions.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
+                const userChoice = selectedOption ? parseInt(selectedOption.value) : -1;
+                const isCorrect = userChoice === item.correct;
+
+                if (isCorrect) score++;
+
+                // Explanations View Build
+                const expCard = document.createElement('div');
+                expCard.className = `p-3 rounded border text-xs ${isCorrect ? 'bg-emerald-50 border-emerald-200' : 'bg-red-50 border-red-200'}`;
+                expCard.innerHTML = `
+                    <p class="font-bold text-slate-800">${index + 1}. ${item.q}</p>
+                    <p class="${isCorrect ? 'text-emerald-700' : 'text-red-700'} font-semibold mt-1">
+                        Your answer: ${userChoice >= 0 ? item.options[userChoice] : 'None Selected'} 
+                        ${isCorrect ? '✓ (Correct)' : '✗ (Incorrect)'}
+                    </p>
+                    ${!isCorrect ? `<p class="text-slate-600 mt-0.5">Correct Answer: <strong>${item.options[item.correct]}</strong></p>` : ''}
+                    <p class="text-slate-500 italic mt-1 bg-white/60 p-2 rounded">${item.explanation}</p>
+                `;
+                explanationsList.appendChild(expCard);
+            });
+
+            // Update Metrics
+            const total = currentActiveQuestions.length;
+            const percentage = Math.round((score / total) * 100);
+            
+            document.getElementById('result-score').textContent = `${score}/${total}`;
+            document.getElementById('result-percentage').textContent = `${percentage}%`;
+            document.getElementById('result-status').textContent = percentage >= 50 ? "PASS" : "FAIL";
+            document.getElementById('result-status').className = `text-2xl font-black ${percentage >= 50 ? 'text-ethGreen' : 'text-ethRed'}`;
+
+            // Switch to Results Tab
+            document.getElementById('exam-active').classList.add('hidden');
+            document.getElementById('exam-results').classList.remove('hidden');
+        }
+
+        function cancelExam() {
+            clearInterval(examTimerInterval);
+            resetExam();
+        }
+
+        function resetExam() {
+            document.getElementById('exam-active').classList.add('hidden');
+            document.getElementById('exam-results').classList.add('hidden');
+            document.getElementById('exam-launcher').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
